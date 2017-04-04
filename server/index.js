@@ -1,3 +1,4 @@
+const path = require('path')
 const Koa = require('koa')
 const Router = require('koa-router')
 const bodyParser = require('koa-bodyparser')
@@ -13,7 +14,8 @@ const router = new Router()
 
 // Koa only serves static assets in production
 if (process.env.NODE_ENV === 'production') {
-  app.use(serve('../client/build'))
+  console.log('static files is in ../client/build')
+  app.use(serve(path.join(__dirname, '../client/build')))
 }
 
 // bodyParser is needed just for POST.
