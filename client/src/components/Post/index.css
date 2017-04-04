@@ -32,6 +32,10 @@
   margin-bottom: 10px;
 }
 
+.Post__content img {
+  width: 100%;
+}
+
 .Post__operations {
   margin-bottom: 10px;
   font-size: 12px;

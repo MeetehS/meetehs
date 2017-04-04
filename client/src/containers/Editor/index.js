@@ -111,7 +111,7 @@ class Editor extends Component {
     let variables = { content: value }
     if (status === STATUS.edit) {
       variables.id = post.id
-      
+
       this.setState((prevState) => ({
         ...prevState,
         status: STATUS.add,
@@ -136,7 +136,7 @@ class Editor extends Component {
         shareButtonDisabled: true,
       }))
     } catch (e) {
-      console.error(`Editor > handleKeyPress > mutate error ${e.message}`)
+      console.error(`Editor > handleShareButtonClick > mutate error ${e.message}`)
     }
   }
 
@@ -150,6 +150,7 @@ class Editor extends Component {
         placeholder="Share..."
         value={value}
         onFocus={this.handleInputFocus}
+        onChange={this.handleChange}
       />
     )
 

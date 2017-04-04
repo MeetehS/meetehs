@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 
 import './index.css'
 
@@ -9,7 +9,7 @@ import ImageWall from '../../components/ImageWall'
 
 class App extends Component {
   state = {
-    post: PropTypes.object,
+    post: null,
   }
 
   onEditButtonClick = (post) => {
