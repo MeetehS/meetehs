@@ -1,0 +1,40 @@
+.Editor {
+  display: flex;
+  width: 100%;
+}
+
+.Editor__input {
+  width: 100%;
+  height: 50px;
+  padding-right: 20px;
+  padding-left: 20px;
+  border: 1px solid #b9b9b9;
+  font-size: 14px;
+}
+
+.Editor__textarea {
+  width: 100%;
+  padding: 14px 20px;
+  border: 1px solid #b9b9b9;
+  resize: none;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.Editor__toolbox {
+  margin-left: 20px;
+}
+
+.Editor__share {
+  width: 50px;
+  height: 25px;
+  margin-top: 20px;
+  border: none;
+  font-size: 14px;
+  background-color: #e60000;
+  color: #fff;
+}
+
+.Editor__share[disabled] {
+  background-color: #b9b9b9;
+}

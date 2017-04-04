@@ -1,0 +1,24 @@
+{
+  "name": "meetehs-server",
+  "version": "0.1.0",
+  "description": "The server for MeetehS",
+  "main": "server.js",
+  "author": "jelly",
+  "scripts": {
+    "start": "nodemon ./server.js",
+    "start:production": "pm2 start ecosystem.config.js"
+  },
+  "dependencies": {
+    "graphql": "^0.9.1",
+    "graphql-server-koa": "^0.6.0",
+    "graphql-tools": "^0.10.1",
+    "koa": "^2.2.0",
+    "koa-bodyparser": "^4.1.0",
+    "koa-router": "next",
+    "koa-static": "^3.0.0",
+    "mongoose": "^4.9.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
