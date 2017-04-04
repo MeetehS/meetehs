@@ -5,8 +5,7 @@
   "main": "server.js",
   "author": "jelly",
   "scripts": {
-    "start": "nodemon ./server.js",
-    "start:production": "pm2 start ecosystem.config.js"
+    "start": "nodemon index.js"
   },
   "dependencies": {
     "graphql": "^0.9.1",
