@@ -27,7 +27,7 @@ module.exports = {
       ref  : 'origin/master',
       repo : 'https://github.com/MeetehS/meetehs.git',
       path : '/root/meetehs/production',
-      'post-deploy' : 'cd server && npm install && NODE_ENV=production pm2 reload ../ecosystem.config.js --env production'
+      'post-deploy' : 'cd server && npm install && cd .. && NODE_ENV=production pm2 reload ecosystem.config.js --env production'
     },
     dev : {
       user : 'root',
@@ -35,7 +35,7 @@ module.exports = {
       ref  : 'origin/master',
       repo : 'https://github.com/MeetehS/meetehs.git',
       path : '/root/meetehs/development',
-      'post-deploy' : 'cd server && npm install && NODE_ENV=production pm2 reload ../ecosystem.config.js --env dev',
+      'post-deploy' : 'cd server && npm install && cd .. && NODE_ENV=production pm2 reload ecosystem.config.js --env dev',
       env  : {
         NODE_ENV: 'dev'
       }
