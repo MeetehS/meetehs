@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 
 import './index.css'
 
@@ -8,7 +8,20 @@ import Posts from '../Posts'
 import ImageWall from '../../components/ImageWall'
 
 class App extends Component {
+  state = {
+    post: PropTypes.object,
+  }
+
+  onEditButtonClick = (post) => {
+    this.setState((prevState) => ({
+      ...prevState,
+      post,
+    }))
+  }
+
   render() {
+    const { post } = this.state
+
     return (
       <div className="App">
         <aside>
@@ -17,11 +30,11 @@ class App extends Component {
 
         <main className="Posts">
           <header className="Posts__header">
-            <Editor />
+            <Editor post={post} />
           </header>
 
           <section className="Posts__body">
-            <Posts />
+            <Posts onEditButtonClick={this.onEditButtonClick} />
           </section>
         </main>
       </div>

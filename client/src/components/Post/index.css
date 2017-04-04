@@ -44,8 +44,8 @@
   color: #4040ff;
 }
 
-.Post__operations > button:last-child {
-  margin-left: 10px;
+.Post__operations > button {
+  margin-right: 10px;
 }
 
 .Post__comments {

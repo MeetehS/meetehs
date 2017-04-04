@@ -14,15 +14,40 @@ const MODES = {
   whole: Symbol('whole'),
 }
 
+const STATUS = {
+  add: Symbol('add'),
+  edit: Symbol('edit'),
+}
+
 class Editor extends Component {
   static propTypes = {
     mutate: PropTypes.func.isRequired,
+    post: PropTypes.object,
+  }
+
+  static defaultProps = {
+    post: {
+      id: null,
+    },
   }
 
   state = {
+    status: STATUS.add,
     mode: MODES.normal,
     shareButtonDisabled: true,
     value: '',
+  }
+
+  componentWillReceiveProps({ post: { content } }) {
+    const { value } = this.state
+
+    if (content !== value) {
+      this.setState((prevState) => ({
+        ...prevState,
+        status: STATUS.edit,
+        value: content,
+      }))
+    }
   }
 
   handleInputFocus = () => {
@@ -40,10 +65,19 @@ class Editor extends Component {
   }
 
   handleChange = ({ target: { value } }) => {
+    const { status } = this.state
+
     this.setState((prevState) => ({
       ...prevState,
       value,
     }))
+
+    if (status === STATUS.edit && value === '') {
+      this.setState((prevState) => ({
+        ...prevState,
+        status: STATUS.add,
+      }))
+    }
 
     if (value.length >= 1) {
       this.setState((prevState) => ({
@@ -71,12 +105,22 @@ class Editor extends Component {
   }
 
   handleShareButtonClick = async () => {
-    const { value } = this.state
-    const { mutate } = this.props
+    const { value, status } = this.state
+    const { mutate, post } = this.props
+
+    let variables = { content: value }
+    if (status === STATUS.edit) {
+      variables.id = post.id
+      
+      this.setState((prevState) => ({
+        ...prevState,
+        status: STATUS.add,
+      }))
+    }
 
     try {
       await mutate({
-        variables: { content: value },
+        variables,
         refetchQueries: [{
           query: postsQuery,
           variables: {

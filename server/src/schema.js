@@ -15,7 +15,7 @@ const typeDefs = `
   }
 
   type Mutation {
-    addPost(content: String!): Post
+    addPost(content: String!, id: String): Post
   }
 `
 

@@ -4,6 +4,8 @@ import marked from 'marked'
 
 import './index.css'
 
+import Avatar from '../Avatar'
+
 marked.setOptions({
   sanitize: true,
 })
@@ -18,6 +20,7 @@ class Post extends Component {
       avatar: PropTypes.string,
     }),
     comments: PropTypes.array,
+    onEditButtonClick: PropTypes.func,
   }
 
   state = {
@@ -33,7 +36,7 @@ class Post extends Component {
 
   render() {
     const { showWholeContent } = this.state
-    const { content, modified } = this.props
+    const { content, modified, onEditButtonClick } = this.props
 
     const renderContentHtml = () => {
       if (showWholeContent || content.length <= 140) {
@@ -50,8 +53,8 @@ class Post extends Component {
     return (
       <article className="Post">
         <header className="Post__meta">
-          {/* <Avatar className="Post__meta__avatar" /> */}
-          {/* <span className="Post__meta__name">jelly&nbsp;</span> */}
+          <Avatar className="Post__meta__avatar" />
+          <span className="Post__meta__name">jelly&nbsp;</span>
           <span className="Post__meta__date">{`shared ${moment(modified).fromNow()}`}</span>
         </header>
 
@@ -61,10 +64,13 @@ class Post extends Component {
           onClick={this.handleContentClick}
         />
 
-        {/* <section className="Post__operations">
-          <button>Reply</button>
-          <button>Like</button>
-        </section> */}
+        {showWholeContent && (
+          <section className="Post__operations">
+            {/* <button>Reply</button> */}
+            {/* <button>Like</button> */}
+            <button onClick={onEditButtonClick}>Edit</button>
+          </section>
+        )}
 
         {/* <section className="Post__comments">
           {[1, 2, 3].map((_, index) => (

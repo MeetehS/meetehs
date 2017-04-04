@@ -14,6 +14,7 @@ class Posts extends Component {
       posts: PropTypes.array,
       total: PropTypes.number,
     }),
+    onEditButtonClick: PropTypes.func,
   }
 
   state = {
@@ -49,12 +50,18 @@ class Posts extends Component {
 
   render() {
     const { pageNo, perPage } = this.state
-    const { data: { posts = [], total = 0 } } = this.props
+    const { data: { posts = [], total = 0 }, onEditButtonClick } = this.props
 
     return (
       <div>
-        {posts.map(({ id, content, modified }) => (
-          <Post key={id} id={id} content={content} modified={modified} />
+        {posts.map((post) => (
+          <Post
+            key={post.id}
+            id={post.id}
+            content={post.content}
+            modified={post.modified}
+            onEditButtonClick={() => { onEditButtonClick(post) }}
+          />
         ))}
 
         <BottomLoading

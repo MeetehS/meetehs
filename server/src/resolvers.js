@@ -6,7 +6,13 @@ const resolvers = {
     total: () => Post.count(),
   },
   Mutation: {
-    addPost: (_, { content }) => Post.addPost({ content }),
+    addPost: (_, { content, id }) => {
+      if (id) {
+        return Post.updatePost({ content, id })
+      } else {
+        return Post.addPost({ content })
+      }
+    },
   },
 }
 
