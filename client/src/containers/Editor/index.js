@@ -108,7 +108,8 @@ class Editor extends Component {
     const { value, status } = this.state
     const { mutate, post } = this.props
 
-    let variables = { content: value }
+    let variables = { content: value, id: undefined }
+
     if (status === STATUS.edit) {
       variables.id = post.id
 
