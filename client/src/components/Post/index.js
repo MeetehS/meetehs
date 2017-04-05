@@ -28,6 +28,10 @@ class Post extends Component {
   }
 
   handleContentClick = () => {
+    // if on selection, don't fold/unfold content
+    if (window.getSelection().toString() !== '') {
+      return
+    }
     this.setState(prevState => ({
       ...prevState,
       showWholeContent: !prevState.showWholeContent,
