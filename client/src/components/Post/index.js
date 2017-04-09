@@ -4,6 +4,8 @@ import marked from 'marked'
 
 import './index.css'
 
+import { getAParent } from '../../utils/element'
+
 import Avatar from '../Avatar'
 
 marked.setOptions({
@@ -27,11 +29,17 @@ class Post extends Component {
     showWholeContent: false,
   }
 
-  handleContentClick = () => {
+  handleContentClick = ({ target }) => {
     // if on selection, don't fold/unfold content
     if (window.getSelection().toString() !== '') {
       return
     }
+
+    // if click <a href=""></a>, don't fold/unfold content
+    if (getAParent(target)) {
+      return
+    }
+
     this.setState(prevState => ({
       ...prevState,
       showWholeContent: !prevState.showWholeContent,
