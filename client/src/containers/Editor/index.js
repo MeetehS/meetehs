@@ -56,9 +56,14 @@ class Editor extends Component {
   }
 
   handleInputFocus = () => {
+    const { value } = this.state
+    let mode = MODES.mini
+    if (value.length > 140) {
+      mode = MODES.whole
+    }
     this.setState((prevState) => ({
       ...prevState,
-      mode: MODES.mini,
+      mode,
     }))
   }
 
