@@ -42,9 +42,14 @@ class Editor extends Component {
     const { value } = this.state
 
     if (content !== value) {
+      let mode = MODES.mini
+      if (content.length > 140) {
+        mode = MODES.whole
+      }
       this.setState((prevState) => ({
         ...prevState,
         status: STATUS.edit,
+        mode,
         value: content,
       }))
     }
