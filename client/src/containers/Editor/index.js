@@ -68,15 +68,20 @@ class Editor extends Component {
   }
 
   handleTextareaBlur = () => {
+    const { value } = this.state
+    let mode = MODES.normal
+    if (value.length > 140) {
+      mode = MODES.whole
+    } else if (value.length > 0) {
+      mode = MODES.mini
+    }
     this.setState((prevState) => ({
       ...prevState,
-      mode: MODES.normal,
+      mode,
     }))
   }
 
   handleChange = ({ target: { value } }) => {
-    const { status } = this.state
-
     this.setState((prevState) => ({
       ...prevState,
       value,
@@ -144,6 +149,7 @@ class Editor extends Component {
       this.setState((prevState) => ({
         ...prevState,
         value: '',
+        mode: MODES.normal,
         shareButtonDisabled: true,
       }))
     } catch (e) {
