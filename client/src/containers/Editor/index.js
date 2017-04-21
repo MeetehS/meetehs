@@ -124,6 +124,13 @@ class Editor extends Component {
     const { value, status } = this.state
     const { mutate, post } = this.props
 
+    this.setState((prevState) => ({
+      ...prevState,
+      value: '',
+      mode: MODES.normal,
+      shareButtonDisabled: true,
+    }))
+
     let variables = { content: value, id: undefined }
 
     if (status === STATUS.edit) {
@@ -146,13 +153,6 @@ class Editor extends Component {
           },
         }],
       })
-
-      this.setState((prevState) => ({
-        ...prevState,
-        value: '',
-        mode: MODES.normal,
-        shareButtonDisabled: true,
-      }))
     } catch (e) {
       console.error(`Editor > handleShareButtonClick > mutate error ${e.message}`)
     }
