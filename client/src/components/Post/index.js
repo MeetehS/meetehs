@@ -7,7 +7,7 @@ import './index.css'
 
 import { getAParent } from '../../utils/element'
 
-import Avatar from '../Avatar'
+// import Avatar from '../Avatar'
 
 marked.setOptions({
   sanitize: true,
@@ -66,8 +66,8 @@ class Post extends Component {
     return (
       <article className="Post">
         <header className="Post__meta">
-          <Avatar className="Post__meta__avatar" />
-          <span className="Post__meta__name">jelly&nbsp;</span>
+          {/* <Avatar className="Post__meta__avatar" /> */}
+          {/* <span className="Post__meta__name">jelly&nbsp;</span> */}
           <span className="Post__meta__date">{`shared ${moment(modified).fromNow()}`}</span>
         </header>
 
