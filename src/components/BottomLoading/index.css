@@ -1,0 +1,17 @@
+.BottomLoading {
+  text-align: center;
+  color: #464646;
+  padding: 10px;
+}
+
+.BottomLoading__loading {
+  font-size: 14px;
+}
+
+.BottomLoading__tip {
+  font-size: 12px;
+}
+
+.BottomLoading__tip__page-no {
+  color: #e60000;
+}
