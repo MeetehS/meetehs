@@ -6,7 +6,7 @@ module.exports = {
   apps : [
     {
       name      : 'MeetehS',
-      script    : 'server/index.js',
+      script    : 'server.js',
       env: {
         COMMON_VARIABLE: 'true'
       },
