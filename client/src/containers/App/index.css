@@ -3,18 +3,10 @@
   padding-left: 33vw;
 }
 
-.Posts {
+.PostList {
   padding: 40px 100px 0;
 }
 
-.Posts__header {
-  position: sticky;
-  top: 0;
-  display: flex;
-  padding: 20px 0;
-  background-color: #fff;
-}
-
-.Posts__header-avatar {
+.PostList__header-avatar {
   margin-left: 20px;
 }

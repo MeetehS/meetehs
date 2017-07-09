@@ -11,6 +11,7 @@ const typeDefs = `
 
   type Query {
      posts(pageNo: Int, perPage: Int): [Post]
+     post(id: String): Post
      total: Int
   }
 

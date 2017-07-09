@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react'
 
 import './index.css'
@@ -8,7 +10,11 @@ class ImageWall extends Component {
   render() {
     return (
       <div className="ImageWall">
-        <img className="ImageWall__img" src={IMG_IMAGE_WALL} alt="The wall of images" />
+        <img
+          className="ImageWall__img"
+          src={IMG_IMAGE_WALL}
+          alt="The wall of images"
+        />
       </div>
     )
   }

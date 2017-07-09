@@ -1,3 +1,5 @@
+// @flow
+
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { graphql } from 'react-apollo'
@@ -5,38 +7,39 @@ import { graphql } from 'react-apollo'
 import './index.css'
 
 import { addPostMutation } from './graphql'
-import { postsQuery } from '../Posts/graphql'
+import { postsQuery } from '../PostList/graphql'
+import { postQuery } from '../Post/graphql'
 
 import Avatar from '../../components/Avatar'
 
 const MODES = {
   normal: Symbol('normal'),
   mini: Symbol('mini'),
-  whole: Symbol('whole'),
+  whole: Symbol('whole')
 }
 
 const STATUS = {
   add: Symbol('add'),
-  edit: Symbol('edit'),
+  edit: Symbol('edit')
 }
 
 class Editor extends Component {
   static propTypes = {
     mutate: PropTypes.func.isRequired,
-    post: PropTypes.object,
+    post: PropTypes.object
   }
 
   static defaultProps = {
     post: {
-      id: null,
-    },
+      id: null
+    }
   }
 
   state = {
     status: STATUS.add,
     mode: MODES.normal,
     shareButtonDisabled: true,
-    value: '',
+    value: ''
   }
 
   componentWillReceiveProps({ post: { content } }) {
@@ -47,11 +50,11 @@ class Editor extends Component {
       if (content.length > 140) {
         mode = MODES.whole
       }
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         ...prevState,
         status: STATUS.edit,
         mode,
-        value: content,
+        value: content
       }))
     }
   }
@@ -62,9 +65,9 @@ class Editor extends Component {
     if (value.length > 140) {
       mode = MODES.whole
     }
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       ...prevState,
-      mode,
+      mode
     }))
   }
 
@@ -76,46 +79,48 @@ class Editor extends Component {
     } else if (value.length > 0) {
       mode = MODES.mini
     }
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       ...prevState,
-      mode,
+      mode
     }))
   }
 
   handleChange = ({ target: { value } }) => {
-    this.setState((prevState) => ({
+    const { status } = this.state
+
+    this.setState(prevState => ({
       ...prevState,
-      value,
+      value
     }))
 
     if (status === STATUS.edit && value === '') {
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         ...prevState,
-        status: STATUS.add,
+        status: STATUS.add
       }))
     }
 
     if (value.length >= 1) {
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         ...prevState,
-        shareButtonDisabled: false,
+        shareButtonDisabled: false
       }))
     } else {
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         ...prevState,
-        shareButtonDisabled: true,
+        shareButtonDisabled: true
       }))
     }
 
     if (value.length >= 140) {
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         ...prevState,
-        mode: MODES.whole,
+        mode: MODES.whole
       }))
     } else {
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         ...prevState,
-        mode: MODES.mini,
+        mode: MODES.mini
       }))
     }
   }
@@ -124,11 +129,11 @@ class Editor extends Component {
     const { value, status } = this.state
     const { mutate, post } = this.props
 
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       ...prevState,
       value: '',
       mode: MODES.normal,
-      shareButtonDisabled: true,
+      shareButtonDisabled: true
     }))
 
     let variables = { content: value, id: undefined }
@@ -136,25 +141,35 @@ class Editor extends Component {
     if (status === STATUS.edit) {
       variables.id = post.id
 
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         ...prevState,
-        status: STATUS.add,
+        status: STATUS.add
       }))
     }
 
     try {
       await mutate({
         variables,
-        refetchQueries: [{
-          query: postsQuery,
-          variables: {
-            pageNo: 1,
-            perPage: 10,
+        refetchQueries: [
+          {
+            query: postsQuery,
+            variables: {
+              pageNo: 1,
+              perPage: 10
+            }
           },
-        }],
+          {
+            query: postQuery,
+            variables: {
+              id: post.id
+            }
+          }
+        ]
       })
     } catch (e) {
-      console.error(`Editor > handleShareButtonClick > mutate error ${e.message}`)
+      console.error(
+        `Editor > handleShareButtonClick > mutate error ${e.message}`
+      )
     }
   }
 
@@ -171,7 +186,6 @@ class Editor extends Component {
         onChange={this.handleChange}
       />
     )
-
     if (mode === MODES.mini || mode === MODES.whole) {
       MiniEditor = (
         <textarea
@@ -194,15 +208,14 @@ class Editor extends Component {
         <div className="Editor__toolbox">
           <Avatar className="Editor__avatar" />
 
-          {(mode === MODES.normal && value === '') || (
+          {(mode === MODES.normal && value === '') ||
             <button
               className="Editor__share"
               disabled={shareButtonDisabled}
               onClick={this.handleShareButtonClick}
             >
               Share
-            </button>
-          )}
+            </button>}
         </div>
       </div>
     )

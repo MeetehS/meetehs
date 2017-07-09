@@ -1,4 +1,9 @@
 .Editor {
+  position: sticky;
+  top: 0;
+  display: flex;
+  padding: 20px 0;
+  background-color: #fff;
   display: flex;
   width: 100%;
 }

@@ -1,41 +1,30 @@
+// @flow
+
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-import './index.css'
-
-import Editor from '../Editor'
-import Posts from '../Posts'
+import PostList from '../PostList'
+import Post from '../Post'
 
 import ImageWall from '../../components/ImageWall'
 
+import './index.css'
+
 class App extends Component {
-  state = {
-    post: null,
-  }
-
-  onEditButtonClick = (post) => {
-    this.setState((prevState) => ({
-      ...prevState,
-      post,
-    }))
-  }
-
   render() {
-    const { post } = this.state
-
     return (
       <div className="App">
         <aside>
           <ImageWall />
         </aside>
 
-        <main className="Posts">
-          <header className="Posts__header">
-            <Editor post={post} />
-          </header>
-
-          <section className="Posts__body">
-            <Posts onEditButtonClick={this.onEditButtonClick} />
-          </section>
+        <main className="PostList">
+          <Router>
+            <div>
+              <Route exact path="/" component={PostList} />
+              <Route path="/post/:id" component={Post} />
+            </div>
+          </Router>
         </main>
       </div>
     )

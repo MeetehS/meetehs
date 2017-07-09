@@ -1,3 +1,5 @@
+// @flow
+
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
@@ -9,20 +11,18 @@ class Avatar extends Component {
   static propTypes = {
     className: PropTypes.string,
     src: PropTypes.string,
-    alt: PropTypes.string,
+    alt: PropTypes.string
   }
 
   static defaultProps = {
     src: ICON_AVATAR_DEFAULT,
-    alt: '',
+    alt: ''
   }
 
   render() {
     const { className, alt, ...other } = this.props
 
-    return (
-      <img alt={alt} className={`Avatar ${className}`} {...other} />
-    )
+    return <img alt={alt} className={`Avatar ${className}`} {...other} />
   }
 }
 

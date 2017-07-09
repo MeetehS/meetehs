@@ -3,6 +3,7 @@ const { Post } = require('./services')
 const resolvers = {
   Query: {
     posts: (_, { pageNo, perPage }) => Post.getPosts(pageNo, perPage),
+    post: (_, { id }) => Post.getPostById(id),
     total: () => Post.count(),
   },
   Mutation: {

@@ -1,26 +1,33 @@
+// @flow
+
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { graphql } from 'react-apollo'
 
-import Post from '../../components/Post'
+import Editor from '../Editor'
+
+import PostItem from '../../components/PostItem'
 import BottomLoading from '../../components/BottomLoading'
 
 import { postsQuery } from './graphql'
 
-class Posts extends Component {
+import './index.css'
+
+class PostList extends Component {
   static propTypes = {
     data: PropTypes.shape({
       loading: PropTypes.bool,
       error: PropTypes.instanceOf(Error),
       posts: PropTypes.array,
-      total: PropTypes.number,
+      total: PropTypes.number
     }),
-    onEditButtonClick: PropTypes.func,
+    onEditButtonClick: PropTypes.func
   }
 
   state = {
     pageNo: 1,
-    perPage: 10,
+    perPage: 10
   }
 
   handleLoad = () => {
@@ -30,7 +37,7 @@ class Posts extends Component {
     fetchMore({
       variables: {
         pageNo: pageNo + 1,
-        perPage,
+        perPage
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) {
@@ -38,14 +45,14 @@ class Posts extends Component {
         }
         return {
           ...previousResult,
-          posts: [...previousResult.posts, ...fetchMoreResult.posts],
+          posts: [...previousResult.posts, ...fetchMoreResult.posts]
         }
-      },
+      }
     })
 
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       ...prevState,
-      pageNo: prevState.pageNo + 1,
+      pageNo: prevState.pageNo + 1
     }))
   }
 
@@ -54,16 +61,22 @@ class Posts extends Component {
     const { data: { posts = [], total = 0 }, onEditButtonClick } = this.props
 
     return (
-      <div>
-        {posts.map((post) => (
-          <Post
-            key={post.id}
-            id={post.id}
-            content={post.content}
-            modified={post.modified}
-            onEditButtonClick={() => { onEditButtonClick(post) }}
-          />
-        ))}
+      <div className="PostList">
+        <Editor />
+
+        {posts.map(post =>
+          <Link key={post.id} to={`/post/${post.id}`}>
+            <PostItem
+              id={post.id}
+              showWholeContent={false}
+              content={post.content}
+              modified={post.modified}
+              onEditButtonClick={() => {
+                onEditButtonClick(post)
+              }}
+            />
+          </Link>
+        )}
 
         <BottomLoading
           total={total}
@@ -80,7 +93,7 @@ export default graphql(postsQuery, {
   options: {
     variables: {
       pageNo: 1,
-      perPage: 10,
-    },
-  },
-})(Posts)
+      perPage: 10
+    }
+  }
+})(PostList)
