@@ -24,7 +24,7 @@ app.use(compress({
 if (process.env.NODE_ENV === 'production') {
   app.use(serve(path.join(__dirname, '../client/build')))
 
-  router.get('/post', async ctx => {
+  router.get('/post/:id', async ctx => {
     await send(ctx, path.join(__dirname, '../client/build', 'index.html'))
   })
 }
