@@ -7,8 +7,6 @@ import marked from 'marked'
 
 import './index.css'
 
-import { getAParent } from '../../utils/element'
-
 // import Avatar from '../Avatar'
 
 marked.setOptions({

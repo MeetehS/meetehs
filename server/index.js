@@ -5,6 +5,7 @@ const Koa = require('koa')
 const Router = require('koa-router')
 const bodyParser = require('koa-bodyparser')
 const serve = require('koa-static')
+const send = require('koa-send')
 const compress = require('koa-compress')
 const { graphqlKoa, graphiqlKoa } = require('graphql-server-koa')
 
@@ -22,6 +23,10 @@ app.use(compress({
 // Koa only serves static assets in production
 if (process.env.NODE_ENV === 'production') {
   app.use(serve(path.join(__dirname, '../client/build')))
+
+  router.get('/post', async ctx => {
+    await send(ctx, path.join(__dirname, '../client/build', 'index.html'))
+  })
 }
 
 // bodyParser is needed just for POST.
