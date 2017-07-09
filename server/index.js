@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(serve(path.join(__dirname, '../client/build')))
 
   router.get('/post/:id', async ctx => {
-    await send(ctx, '../client/build/index.html'))
+    await send(ctx, '../client/build/index.html')
   })
 }
 
