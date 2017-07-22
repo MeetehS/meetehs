@@ -9,7 +9,7 @@ const send = require('koa-send')
 const compress = require('koa-compress')
 const { graphqlKoa, graphiqlKoa } = require('graphql-server-koa')
 
-const { schema } = require('./server/schema')
+const { schema } = require('./schema')
 
 const PORT = process.env.PORT || 4000
 

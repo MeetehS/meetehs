@@ -13,7 +13,7 @@
     "flow": "flow",
     "analyze": "source-map-explorer build/static/js/main.*",
     "start:client": "react-scripts start",
-    "start:server": "nodemon --watch server.js --watch server server.js",
+    "start:server": "nodemon --watch server server",
     "start": "npm-run-all --parallel start:server start:client",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
