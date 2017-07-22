@@ -13,10 +13,11 @@
     "flow": "flow",
     "analyze": "source-map-explorer build/static/js/main.*",
     "start:client": "react-scripts start",
+    "start:server": "nodemon --watch server.js --watch server server.js",
+    "start": "npm-run-all --parallel start:server start:client",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "start:server": "nodemon --watch server.js --watch server server.js",
     "deploy": "pm2 deploy ecosystem.config.js production"
   },
   "dependencies": {
@@ -44,6 +45,7 @@
     "husky": "^0.14.3",
     "lint-staged": "^4.0.2",
     "nodemon": "^1.11.0",
+    "npm-run-all": "^4.0.2",
     "prettier": "^1.5.3",
     "react-scripts": "^1.0.10",
     "source-map-explorer": "^1.4.0"
