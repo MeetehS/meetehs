@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import PostList from "../PostList";
 import Post from "../Post";
 
-import ImageWall from "../../components/ImageWall";
+import ImageWall from "../ImageWall";
 
 import "./index.css";
 
@@ -18,7 +18,7 @@ class App extends Component {
           <ImageWall />
         </aside>
 
-        <main className="PostList">
+        <main className="List">
           <Router>
             <div>
               <Route exact path="/" component={PostList} />

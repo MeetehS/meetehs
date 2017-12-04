@@ -1,12 +1,16 @@
 # Changelog
 
-## 0.2.0
+## v0.2.1 - 2017-12-03
+- refactor: upgrade apollo
+- feature: use unsplash random photo for ImageWall
+
+## v0.2.0
 - add post
 
-## 0.1.1
+## v0.1.1
 - update post
 
-## 0.1.0
+## v0.1.0
 - add post
 - post list
 - post detail

@@ -23,6 +23,11 @@ class Post extends Component {
     }));
   };
 
+  componentDidMount() {
+    // Note: scroll to top when mounted
+    window.scrollTo(0, 0);
+  }
+
   render() {
     const { post } = this.state;
     const { match } = this.props;

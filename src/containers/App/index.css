@@ -3,8 +3,10 @@
   padding-left: 33vw;
 }
 
-.PostList {
-  padding: 40px 100px 0;
+.List {
+  width: 580px;
+  padding-top: 40px;
+  margin-left: 40px;
 }
 
 .PostList__header-avatar {

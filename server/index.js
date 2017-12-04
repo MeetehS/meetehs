@@ -49,4 +49,6 @@ router.get('/graphiql', graphiqlKoa({
 app.use(router.routes())
 app.use(router.allowedMethods())
 
-app.listen(PORT, () => console.log(`Server is now running on http://localhost:${PORT}`))
+app.listen(PORT, () => {
+  console.log(`Server is now running on http://localhost:${PORT}`)
+})
