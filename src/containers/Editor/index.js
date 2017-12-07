@@ -42,7 +42,7 @@ type State = {
   value: string
 };
 
-export default class Editor extends React.Component<Props, State> {
+class Editor extends React.Component<Props, State> {
   static defaultProps = {
     post: {
       id: null
@@ -107,12 +107,11 @@ export default class Editor extends React.Component<Props, State> {
 
   handleKeyDown = (e: SyntheticInputEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      e.preventDefault();
-
       const { value } = e.target;
 
       COMMAND_TRIGGERS.forEach(trigger => {
         if (value.startsWith(`@${trigger}`)) {
+          e.preventDefault();
           COMMANDS[trigger](value.slice(trigger.length + 1));
         }
       });
@@ -259,4 +258,4 @@ export default class Editor extends React.Component<Props, State> {
   }
 }
 
-graphql(addPostMutation)(Editor);
+export default graphql(addPostMutation)(Editor);

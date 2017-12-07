@@ -5,22 +5,28 @@ export const COMMANDS = {
     window.open(url);
   },
 
-  google(search: string) {
-    const GOOGLE_SEARCH = `//www.google.com.tw/search?q=${search}`;
-
-    COMMANDS.open(GOOGLE_SEARCH);
-  },
-
   duckduckgo(search: string) {
     const DUCKDUCKGO_SEARCH = `//duckduckgo.com/?q=${search}`;
 
     COMMANDS.open(DUCKDUCKGO_SEARCH);
   },
 
+  google(search: string) {
+    const GOOGLE_SEARCH = `//www.google.com.tw/search?q=${search}`;
+
+    COMMANDS.open(GOOGLE_SEARCH);
+  },
+
   baidu(search: string) {
     const BAIDU_SEARCH = `//www.baidu.com/s?wd=${search}`;
 
     COMMANDS.open(BAIDU_SEARCH);
+  },
+
+  wikipedia(search: string) {
+    const WIKIPEDIA_SEARCH = `//en.wikipedia.org/wiki/${search}`;
+
+    COMMANDS.open(WIKIPEDIA_SEARCH);
   },
 
   iciba(search: string) {
