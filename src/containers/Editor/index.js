@@ -1,16 +1,17 @@
 // @flow
 
-import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 import { graphql } from "react-apollo";
-
-import "./index.css";
 
 import { addPostMutation } from "./graphql";
 import { postsQuery } from "../PostList/graphql";
 import { postQuery } from "../Post/graphql";
 
 import Avatar from "../../components/Avatar";
+
+import { COMMANDS, COMMAND_TRIGGERS } from "../../model/Commands";
+
+import "./index.css";
 
 const MODES = {
   normal: Symbol("normal"),
@@ -23,12 +24,25 @@ const STATUS = {
   edit: Symbol("edit")
 };
 
-class Editor extends Component {
-  static propTypes = {
-    mutate: PropTypes.func.isRequired,
-    post: PropTypes.object
-  };
+type Post = {
+  id: string,
+  content: string,
+  modified: string
+};
 
+type Props = {
+  mutate: Function,
+  post: Post
+};
+
+type State = {
+  status: Symbol,
+  mode: Symbol,
+  shareButtonDisabled: boolean,
+  value: string
+};
+
+export default class Editor extends React.Component<Props, State> {
   static defaultProps = {
     post: {
       id: null
@@ -42,8 +56,14 @@ class Editor extends Component {
     value: ""
   };
 
-  componentWillReceiveProps({ post: { content } }) {
+  componentWillReceiveProps(nextProps: Props) {
+    const { post } = nextProps;
+    const { content } = post;
     const { value } = this.state;
+
+    if (content === undefined) {
+      return;
+    }
 
     if (content !== value) {
       let mode = MODES.mini;
@@ -85,7 +105,22 @@ class Editor extends Component {
     }));
   };
 
-  handleChange = ({ target: { value } }) => {
+  handleKeyDown = (e: SyntheticInputEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+
+      const { value } = e.target;
+
+      COMMAND_TRIGGERS.forEach(trigger => {
+        if (value.startsWith(`@${trigger}`)) {
+          COMMANDS[trigger](value.slice(trigger.length + 1));
+        }
+      });
+    }
+  };
+
+  handleChange = (e: SyntheticInputEvent<HTMLInputElement>) => {
+    const value = e.target.value;
     const { status } = this.state;
 
     this.setState(prevState => ({
@@ -197,6 +232,7 @@ class Editor extends Component {
           autoFocus
           onBlur={this.handleTextareaBlur}
           onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown}
         />
       );
     }
@@ -208,18 +244,19 @@ class Editor extends Component {
         <div className="Editor__toolbox">
           <Avatar className="Editor__avatar" />
 
-          {(mode === MODES.normal && value === "") ||
+          {(mode === MODES.normal && value === "") || (
             <button
               className="Editor__share"
               disabled={shareButtonDisabled}
               onClick={this.handleShareButtonClick}
             >
               Share
-            </button>}
+            </button>
+          )}
         </div>
       </div>
     );
   }
 }
 
-export default graphql(addPostMutation)(Editor);
+graphql(addPostMutation)(Editor);

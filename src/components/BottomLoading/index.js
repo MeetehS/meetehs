@@ -1,18 +1,17 @@
 // @flow
 
-import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 
 import "./index.css";
 
-class BottomLoading extends Component {
-  static propTypes = {
-    total: PropTypes.number.isRequired,
-    pageNo: PropTypes.number.isRequired,
-    perPage: PropTypes.number.isRequired,
-    onLoad: PropTypes.func.isRequired
-  };
+type Props = {
+  total: number,
+  pageNo: number,
+  perPage: number,
+  onLoad: Function
+};
 
+class BottomLoading extends React.Component<Props> {
   nativeBottomLoading = null;
 
   componentDidMount() {

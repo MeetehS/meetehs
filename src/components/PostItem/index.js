@@ -1,7 +1,6 @@
 // @flow
 
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import moment from "moment";
 import marked from "marked";
 
@@ -13,20 +12,17 @@ marked.setOptions({
   sanitize: true
 });
 
-class PostItem extends Component {
-  static propTypes = {
-    id: PropTypes.string,
-    content: PropTypes.string.isRequired,
-    modified: PropTypes.string.isRequired,
-    author: PropTypes.shape({
-      name: PropTypes.string,
-      avatar: PropTypes.string
-    }),
-    comments: PropTypes.array,
-    onEditButtonClick: PropTypes.func,
-    showWholeContent: PropTypes.bool
-  };
+type Props = {
+  id: string,
+  content: string,
+  modified: string,
+  author: Object,
+  // comments: Array,
+  onEditButtonClick: Function,
+  showWholeContent: boolean
+};
 
+class PostItem extends React.Component<Props> {
   static defaultProps = {
     showWholeContent: true
   };
@@ -67,12 +63,13 @@ class PostItem extends Component {
           dangerouslySetInnerHTML={renderContentHtml()}
         />
 
-        {showWholeContent &&
+        {showWholeContent && (
           <section className="PostItem__operations">
             {/* <button>Reply</button> */}
             {/* <button>Like</button> */}
             <button onClick={this.onEditButtonClick}>Edit</button>
-          </section>}
+          </section>
+        )}
 
         {/* <section className="PostItem__comments">
           {[1, 2, 3].map((_, index) => (

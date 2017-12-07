@@ -38,7 +38,6 @@
     "marked": "^0.3.7",
     "moment": "^2.19.3",
     "mongoose": "^4.13.6",
-    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-apollo": "^2.0.1",
     "react-dom": "^16.2.0",

@@ -1,7 +1,6 @@
 // @flow
 
-import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 import { Link } from "react-router-dom";
 import { graphql } from "react-apollo";
 
@@ -14,17 +13,12 @@ import { postsQuery } from "./graphql";
 
 import "./index.css";
 
-class PostList extends Component {
-  static propTypes = {
-    data: PropTypes.shape({
-      loading: PropTypes.bool,
-      error: PropTypes.instanceOf(Error),
-      posts: PropTypes.array,
-      total: PropTypes.number
-    }),
-    onEditButtonClick: PropTypes.func
-  };
+type Props = {
+  data: Object,
+  onEditButtonClick: Function
+};
 
+class PostList extends React.Component<Props> {
   state = {
     pageNo: 1,
     perPage: 10
@@ -64,7 +58,7 @@ class PostList extends Component {
       <div className="PostList">
         <Editor />
 
-        {posts.map(post =>
+        {posts.map(post => (
           <Link key={post.id} to={`/post/${post.id}`}>
             <PostItem
               id={post.id}
@@ -76,7 +70,7 @@ class PostList extends Component {
               }}
             />
           </Link>
-        )}
+        ))}
 
         <BottomLoading
           total={total}

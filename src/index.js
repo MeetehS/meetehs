@@ -16,9 +16,15 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
+const container = document.getElementById("root");
+
+if (container === null) {
+  throw new Error("The container can not be null");
+}
+
 ReactDOM.render(
   <ApolloProvider client={client}>
     <App />
   </ApolloProvider>,
-  document.getElementById("root")
+  container
 );

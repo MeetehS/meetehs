@@ -1,19 +1,18 @@
 // @flow
 
-import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 
 import "./index.css";
 
 import ICON_AVATAR_DEFAULT from "./avatar-default.png";
 
-class Avatar extends Component {
-  static propTypes = {
-    className: PropTypes.string,
-    src: PropTypes.string,
-    alt: PropTypes.string
-  };
+type Props = {
+  className: string,
+  src: string,
+  alt: string
+};
 
+class Avatar extends React.Component<Props> {
   static defaultProps = {
     src: ICON_AVATAR_DEFAULT,
     alt: ""
