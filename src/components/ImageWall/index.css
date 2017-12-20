@@ -5,6 +5,8 @@
   width: 33vw;
   height: 100vh;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
+}
+
+.ImageWall__img {
+  height: 100%;
 }
